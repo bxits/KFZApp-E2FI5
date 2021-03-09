@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="Events\BusinessLogicEvents.cs" />
     <Compile Include="KFZCollectionModel.cs" />
     <Compile Include="KFZModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

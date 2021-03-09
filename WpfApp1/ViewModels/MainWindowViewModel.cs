@@ -15,6 +15,7 @@ namespace WpfApp1.ViewModels
     {
         ICommand _getAllDataCommand;
         KFZModel _selectedKFZ;
+        KFZCollectionModel _kfzCollModel;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -39,7 +40,8 @@ namespace WpfApp1.ViewModels
         public MainWindowViewModel()
         {
             KFZListe = new ObservableCollection<KFZModel>();
-            //KFZCollectionModel km = new KFZCollectionModel();
+            _kfzCollModel = new KFZCollectionModel();
+            _kfzCollModel.KFZDataReady += _kfzCollModel_KFZDataReady;
 
             //List<KFZModel> tmp = km.KFZListe;
 
@@ -69,6 +71,22 @@ namespace WpfApp1.ViewModels
                 FahrgestellNr = "4828345"
             };
             KFZListe.Add(SelectedKFZ);
+
+
+
+        }
+
+        private void _kfzCollModel_KFZDataReady(List<KFZModel> list)
+        {
+            KFZListe.Clear(); //Liste leeren.
+
+            foreach (KFZModel kfzm in list) //Umverpacken von List -> ObservableCollection
+            {
+                KFZListe.Add(kfzm);
+            }
+
+            PropertyChanged(this, new PropertyChangedEventArgs("KFZListe")); //Event an die Oberfläche, dass 
+            //in der KFZListe neue Daten enthalten sind.
         }
 
         public ICommand GetAllDataCommand
@@ -85,17 +103,7 @@ namespace WpfApp1.ViewModels
 
         private void GetAllData()
         {
-            KFZListe.Clear();
-
-            KFZCollectionModel km = new KFZCollectionModel();
-
-            List<KFZModel> tmp = km.KFZListe;
-
-            foreach (KFZModel kfzm in tmp)
-            {
-                KFZListe.Add(kfzm);
-            }
-            PropertyChanged(this, new PropertyChangedEventArgs("KFZListe"));
+            _kfzCollModel.GetAllKFZFromDB();
         }
     }
 }
