@@ -8,4 +8,5 @@ namespace BusinessLogic.Events
 {
     //Deklaration des EventHandlers
     public delegate void KFZDataReadyEventHandler(List<KFZModel> list);
+    public delegate void InfoMessageEventHandler(string msg);
 }

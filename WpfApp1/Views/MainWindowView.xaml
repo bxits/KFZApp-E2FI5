@@ -7,9 +7,11 @@
         xmlns:ViewModel="clr-namespace:WpfApp1.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <Window.DataContext>
         <ViewModel:MainWindowViewModel x:Name="mvm"></ViewModel:MainWindowViewModel>
     </Window.DataContext>
+    <Viewbox>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -35,8 +37,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Command="{Binding GetAllDataCommand}" Grid.Column="1" Margin="130.2,210,-0.4,150" Grid.RowSpan="2">Daten holen</Button>
-
+        
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <Button Command="{Binding GetAllDataCommand}" Margin="0,5" >Daten holen</Button>
+            <Button Command="{Binding DeleteKfzCommand}"  Margin="0,5" >Kfz löschen</Button>
+        </StackPanel>
+        
         <StackPanel Grid.Row="0" Grid.Column="1">
             <TextBox Text="{Binding SelectedKFZ.Idkfz}"></TextBox>
             <TextBox Text="{Binding SelectedKFZ.Kennzeichen}"></TextBox>
@@ -44,5 +50,11 @@
             <TextBox Text="{Binding SelectedKFZ.Leistung}"></TextBox>
             <TextBox Text="{Binding SelectedKFZ.FahrgestellNr}"></TextBox>
         </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Label Content="{Binding InfoMessage}"></Label>
+            
+        </StackPanel>
     </Grid>
+    </Viewbox>
 </Window>

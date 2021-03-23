@@ -1,46 +1,51 @@
-﻿using System;
+﻿using CommonTypes;
+using Mk.DBConnector;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data;
 
-using Mk.DBConnector;
-
-namespace BusinessLogic
+namespace DataAccess
 {
-    public static class Connection
+    public class MariaDBDataAccess : IKFZDataAccess
     {
-        static DBAdapter Adapter;
-        static Connection()
+        DBAdapter Adapter;
+
+        public bool Connect(string conString)
         {
-            Connection.Adapter = new DBAdapter(DatabaseType.MySql,
-                Instance.NewInstance, "localhost", 3306, "kfzka", "ukfz", "ukfz", "logdatei.log");
+            bool success = false;
+            //DB-Verbindung aufbauen.
+
+
+            return success;
         }
 
-        public static List<KFZModel> GetKFZList()
+        //CRUD
+        public List<KFZ> GetKFZList()
         {
-            List<KFZModel> ltemp = new List<KFZModel>();
+            List<KFZ> ltemp = new List<KFZ>();
 
+            //Maria-DB
             string sql = string.Format("SELECT * FROM kfz;");
 
             DataTable t = Adapter.Adapter.GetDataTable(sql);
 
-            foreach(DataRow r in t.Rows)
+            foreach (DataRow r in t.Rows)
             {
-                KFZModel k = new KFZModel();
+                KFZ k = new KFZ();
                 k.Idkfz = long.Parse(r[0].ToString());
                 k.FahrgestellNr = r[1].ToString();
                 k.Kennzeichen = r[2].ToString();
                 k.Leistung = Convert.ToInt32(r[3].ToString());
                 k.Typ = r[4].ToString();
-                
+
                 ltemp.Add(k);
             }
 
 
             return ltemp;
         }
-    
     }
 }

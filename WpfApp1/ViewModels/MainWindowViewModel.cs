@@ -14,10 +14,11 @@ namespace WpfApp1.ViewModels
     class MainWindowViewModel : INotifyPropertyChanged
     {
         ICommand _getAllDataCommand;
+        ICommand _deleteKfzCommand;
         KFZModel _selectedKFZ;
         KFZCollectionModel _kfzCollModel;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+       // public event PropertyChangedEventHandler PropertyChanged;
 
         public KFZModel SelectedKFZ
         {
@@ -29,7 +30,7 @@ namespace WpfApp1.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedKFZ"));
             }
         }
-
+        public string InfoMessage { get; set; }
 
         public ObservableCollection<KFZModel> KFZListe
         {
@@ -42,6 +43,8 @@ namespace WpfApp1.ViewModels
             KFZListe = new ObservableCollection<KFZModel>();
             _kfzCollModel = new KFZCollectionModel();
             _kfzCollModel.KFZDataReady += _kfzCollModel_KFZDataReady;
+            _kfzCollModel.InfoMessage += _kfzCollModel_InfoMessage;
+
 
             //List<KFZModel> tmp = km.KFZListe;
 
@@ -76,6 +79,11 @@ namespace WpfApp1.ViewModels
 
         }
 
+        private void _kfzCollModel_InfoMessage(string msg)
+        {
+            InfoMessage = msg;
+        }
+
         private void _kfzCollModel_KFZDataReady(List<KFZModel> list)
         {
             KFZListe.Clear(); //Liste leeren.
@@ -84,9 +92,6 @@ namespace WpfApp1.ViewModels
             {
                 KFZListe.Add(kfzm);
             }
-
-            PropertyChanged(this, new PropertyChangedEventArgs("KFZListe")); //Event an die Oberfläche, dass 
-            //in der KFZListe neue Daten enthalten sind.
         }
 
         public ICommand GetAllDataCommand
@@ -99,11 +104,25 @@ namespace WpfApp1.ViewModels
             }
         }
 
-
-
         private void GetAllData()
         {
             _kfzCollModel.GetAllKFZFromDB();
+        }
+
+
+        public ICommand DeleteKfzCommand
+        {
+            get
+            {
+                if (_deleteKfzCommand == null)
+                    _deleteKfzCommand = new RelayCommand(c => DeleteKfz());
+                return _deleteKfzCommand;
+            }
+        }
+
+        public void DeleteKfz()
+        {
+            _kfzCollModel.DeleteKfz(SelectedKFZ);
         }
     }
 }
