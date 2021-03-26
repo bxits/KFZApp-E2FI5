@@ -9,6 +9,11 @@ namespace DataAccess
 {
     public class PostGreSQLDataAccess : IKFZDataAccess
     {
+        public void DeleteKFZ(KFZ kfz)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<KFZ> GetKFZList()
         {
             List<KFZ> kfzListeMock = new List<KFZ>();
@@ -35,6 +40,16 @@ namespace DataAccess
             kfzListeMock.Add(k2);
 
             return kfzListeMock;
+        }
+
+        public void InsertNewKFZ(KFZ newKfz)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateKFZ(KFZ kfz)
+        {
+            throw new NotImplementedException();
         }
     }
 }

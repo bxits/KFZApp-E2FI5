@@ -11,6 +11,21 @@ namespace DataAccess
     ///die implementierenen Klassen bereitstellen müssen.
     public interface IKFZDataAccess
     {
+        bool IsConnected { get; }
+
+        //CRUD-Szenario implementieren
+        
+        //Read 
         List<KFZ> GetKFZList();
+
+        //Create
+        void InsertNewKFZ(KFZ newKfz);
+
+        //Delete
+        void DeleteKFZ(KFZ kfz);
+
+        //Update
+        void UpdateKFZ(KFZ kfz);
+        
     }
 }

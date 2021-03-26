@@ -11,15 +11,33 @@ namespace DataAccess
 {
     public class MariaDBDataAccess : IKFZDataAccess
     {
-        DBAdapter Adapter;
+        private DBAdapter _adapter;
 
-        public bool Connect(string conString)
+        public bool IsConnected { get; private set; }
+
+        public bool Connect(string conString) //Connection-String noch verwenden.
         {
             bool success = false;
             //DB-Verbindung aufbauen.
+            try
+            {
+                _adapter = new DBAdapter(DatabaseType.MySql, 
+                    Instance.NewInstance, "localhost", 3306, "kfzka", "ukfz", "ukfz", "logdatei.log");
+                _adapter.Adapter.LogFile = true;
+                IsConnected = true;
+            }
+            catch (Exception)
+            {
 
+                IsConnected = false;
+            }
 
             return success;
+        }
+
+        public void DeleteKFZ(KFZ kfz)
+        {
+            throw new NotImplementedException();
         }
 
         //CRUD
@@ -30,7 +48,7 @@ namespace DataAccess
             //Maria-DB
             string sql = string.Format("SELECT * FROM kfz;");
 
-            DataTable t = Adapter.Adapter.GetDataTable(sql);
+            DataTable t = _adapter.Adapter.GetDataTable(sql);
 
             foreach (DataRow r in t.Rows)
             {
@@ -46,6 +64,16 @@ namespace DataAccess
 
 
             return ltemp;
+        }
+
+        public void InsertNewKFZ(KFZ newKfz)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateKFZ(KFZ kfz)
+        {
+            throw new NotImplementedException();
         }
     }
 }
