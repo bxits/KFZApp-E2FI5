@@ -15,6 +15,9 @@ namespace DataAccess
 
         public bool IsConnected { get; private set; }
 
+        public event ErrorMessageEventHandler ErrorMessage;
+        public event InfoMessageEventHandler InfoMessage;
+
         public bool Connect(string conString) //Connection-String noch verwenden.
         {
             bool success = false;
@@ -37,7 +40,13 @@ namespace DataAccess
 
         public void DeleteKFZ(KFZ kfz)
         {
-            throw new NotImplementedException();
+            //Maria-DB
+            string del_sql = string.Format($"DELETE FROM kfz WHERE idkfz = {kfz.Idkfz};");
+            _adapter.Adapter.ExecuteSQL(del_sql);
+            _adapter.Adapter.WriteLogFile($"KFZ {kfz.Idkfz}, {kfz.Kennzeichen} erfolgreich gelöscht.");
+            
+            //Info, wen es interessiert.
+            InfoMessage?.Invoke($"KFZ {kfz.Idkfz}, {kfz.Kennzeichen} erfolgreich gelöscht.");
         }
 
         //CRUD

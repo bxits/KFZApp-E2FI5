@@ -11,10 +11,13 @@ namespace DataAccess
     ///die implementierenen Klassen bereitstellen müssen.
     public interface IKFZDataAccess
     {
+        event ErrorMessageEventHandler ErrorMessage;
+        event InfoMessageEventHandler InfoMessage;
+
         bool IsConnected { get; }
+        bool Connect(string connectionString);
 
         //CRUD-Szenario implementieren
-        
         //Read 
         List<KFZ> GetKFZList();
 
@@ -23,7 +26,7 @@ namespace DataAccess
 
         //Delete
         void DeleteKFZ(KFZ kfz);
-
+      
         //Update
         void UpdateKFZ(KFZ kfz);
         

@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccessEvents.cs" />
     <Compile Include="IKFZDataAccess.cs" />
     <Compile Include="MariaDBDataAccess.cs" />
     <Compile Include="PostGreSQLDataAccess.cs" />
