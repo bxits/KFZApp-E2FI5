@@ -9,6 +9,16 @@ namespace DataAccess
 {
     public class PostGreSQLDataAccess : IKFZDataAccess
     {
+        public bool IsConnected => throw new NotImplementedException();
+
+        public event ErrorMessageEventHandler ErrorMessage;
+        public event InfoMessageEventHandler InfoMessage;
+
+        public bool Connect(string connectionString)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteKFZ(KFZ kfz)
         {
             throw new NotImplementedException();

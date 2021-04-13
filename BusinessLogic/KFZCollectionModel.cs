@@ -28,9 +28,9 @@ namespace BusinessLogic
         public void GetAllKFZFromDB()
         {
             //if fehlt noch aus Config-File ODER über using-Direktive...
-            //IKFZDataAccess dbAccess = new MariaDBDataAccess();
+            IKFZDataAccess dbAccess = new MariaDBDataAccess();
             //alternativ:
-            IKFZDataAccess dbAccess = new PostGreSQLDataAccess();
+            //IKFZDataAccess dbAccess = new PostGreSQLDataAccess();
 
             if (dbAccess.Connect(""))
             {

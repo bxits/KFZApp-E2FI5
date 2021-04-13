@@ -15,10 +15,11 @@ namespace WpfApp1.ViewModels
     {
         ICommand _getAllDataCommand;
         ICommand _deleteKfzCommand;
+        ICommand _viewLoadedCommand;
         KFZModel _selectedKFZ;
         KFZCollectionModel _kfzCollModel;
 
-       // public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public KFZModel SelectedKFZ
         {
@@ -124,5 +125,21 @@ namespace WpfApp1.ViewModels
         {
             _kfzCollModel.DeleteKfz(SelectedKFZ);
         }
+
+        public ICommand ViewLoadedCommand
+        {
+            get
+            {
+                if (_viewLoadedCommand == null)
+                    _viewLoadedCommand = new RelayCommand(c => LoadInitialData());
+                return _viewLoadedCommand;
+            }
+        }
+
+        public void LoadInitialData()
+        {
+            _kfzCollModel.GetAllKFZFromDB();
+        }
+
     }
 }
