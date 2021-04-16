@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,57 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    public class KFZModel
+    public class KFZModel //KFZPresenter
     {
         public bool IsSelected { get; set; }
+        private KFZ _kfzData;
+
+        public int Leistung{ get; set; }
+        public string Kennzeichen { 
+            get {
+                return _kfzData.Kennzeichen;
+            }
+            set {
+                //Validierung hier sinnoll
+                _kfzData.Kennzeichen = value;
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public long Idkfz { get; set; }
 
