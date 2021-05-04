@@ -17,49 +17,52 @@
         <ViewModel:MainWindowViewModel x:Name="mvm"></ViewModel:MainWindowViewModel>
     </Window.DataContext>
     <Viewbox>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <ListBox Background="AliceBlue" Grid.Row="0" Grid.Column="0" Name="lbKFZ" ItemsSource="{Binding KFZListe}" 
+            <ListBox Background="AliceBlue" Grid.Row="0" Grid.Column="0" Name="lbKFZ" ItemsSource="{Binding KFZListe}" 
                  SelectedItem="{Binding SelectedKFZ, Mode=TwoWay}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="cbS" IsChecked="{Binding Selected, Mode=TwoWay}"></CheckBox>
-                        <Label Content="{Binding Kennzeichen}" Width="100"></Label>
-                        <Label Content="{Binding Leistung}"></Label>
-                        <Label Content="{Binding Typ}" Width="100"></Label>
-                        <Label Content="{Binding FahrgestellNr}"></Label>
-                        <Label Content="{Binding Idkfz}"></Label>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
-            <Button Command="{Binding GetAllDataCommand}" Margin="0,5" >Daten holen</Button>
-            <Button Command="{Binding DeleteKfzCommand}"  Margin="0,5" >Kfz löschen</Button>
-        </StackPanel>
-        
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBox Text="{Binding SelectedKFZ.Idkfz}"></TextBox>
-            <TextBox Text="{Binding SelectedKFZ.Kennzeichen}"></TextBox>
-            <TextBox Text="{Binding SelectedKFZ.Typ}"></TextBox>
-            <TextBox Text="{Binding SelectedKFZ.Leistung}"></TextBox>
-            <TextBox Text="{Binding SelectedKFZ.FahrgestellNr}"></TextBox>
-        </StackPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="cbS" IsChecked="{Binding Selected, Mode=TwoWay}"></CheckBox>
+                            <Label Content="{Binding Kennzeichen}" Width="100"></Label>
+                            <Label Content="{Binding Leistung}"></Label>
+                            <Label Content="{Binding Typ}" Width="100"></Label>
+                            <Label Content="{Binding FahrgestellNr}"></Label>
+                            <Label Content="{Binding Idkfz}"></Label>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Label Content="{Binding InfoMessage}"></Label>
-            
-        </StackPanel>
-    </Grid>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                <Button Command="{Binding GetAllDataCommand}" Margin="0,5" >Daten holen</Button>
+                <Button Command="{Binding DeleteKfzCommand}"  Margin="0,5" >Kfz löschen</Button>
+                <Button Command="{Binding NewKfzCommand}"  Margin="0,5" >Kfz neu anlegen</Button>
+                <Button Command="{Binding UpdateKfzCommand}"  Margin="0,5" >Kfz speichern</Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <TextBox Text="{Binding SelectedKFZ.Idkfz}"></TextBox>
+                <TextBox Text="{Binding SelectedKFZ.Kennzeichen}"></TextBox>
+                <TextBox Text="{Binding SelectedKFZ.Typ}"></TextBox>
+                <TextBox Text="{Binding SelectedKFZ.Leistung}"></TextBox>
+                <TextBox Text="{Binding SelectedKFZ.FahrgestellNr}"></TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <Label Content="{Binding InfoMessage}"></Label>
+
+            </StackPanel>
+        </Grid>
     </Viewbox>
 </Window>

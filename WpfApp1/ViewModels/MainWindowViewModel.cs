@@ -8,6 +8,8 @@ using System.ComponentModel;
 using BusinessLogic;
 using System.Windows.Input;
 using CommandHelper;
+using BusinessLogic.Events;
+using CommonTypes;
 
 namespace WpfApp1.ViewModels
 {
@@ -18,6 +20,7 @@ namespace WpfApp1.ViewModels
         ICommand _viewLoadedCommand;
         KFZModel _selectedKFZ;
         KFZCollectionModel _kfzCollModel;
+        string _infoMessage;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +34,18 @@ namespace WpfApp1.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedKFZ"));
             }
         }
-        public string InfoMessage { get; set; }
+        public string InfoMessage
+        {
+            get
+            {
+                return _infoMessage;
+            }
+            set
+            {
+                _infoMessage = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("InfoMessage"));
+            }
+        }
 
         public ObservableCollection<KFZModel> KFZListe
         {
@@ -45,14 +59,8 @@ namespace WpfApp1.ViewModels
             _kfzCollModel = new KFZCollectionModel();
             _kfzCollModel.KFZDataReady += _kfzCollModel_KFZDataReady;
             _kfzCollModel.InfoMessage += _kfzCollModel_InfoMessage;
+            _kfzCollModel.KFZStateChanged += KFZUpdate; //Registriert
 
-
-            //List<KFZModel> tmp = km.KFZListe;
-
-            //foreach (KFZModel kfzm in tmp)
-            //{
-            //    this.ocKFZ.Add(kfzm);
-            //}
             SelectedKFZ = new KFZModel()
             {
                 IsSelected = false,
@@ -75,9 +83,31 @@ namespace WpfApp1.ViewModels
                 FahrgestellNr = "4828345"
             };
             KFZListe.Add(SelectedKFZ);
+        }
+
+        private void KFZUpdate(E_KFZSTATE kfzs, KFZ k)
+        {
+            InfoMessage = "Schöne Grüße vom Thread." + $"KFZ-ID: {k.Idkfz}";
+
+            switch (kfzs)
+            {
+                case E_KFZSTATE.eKFZNew:
+
+                    break;
+                case E_KFZSTATE.eKFZChanged:
+
+                    break;
+                case E_KFZSTATE.eKFZDeleted:
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
-
+        private void _kfzCollModel_KFZStateChanged(BusinessLogic.Events.E_KFZSTATE kfzs, global::CommonTypes.KFZ kfz)
+        {
+            throw new NotImplementedException();
         }
 
         private void _kfzCollModel_InfoMessage(string msg)

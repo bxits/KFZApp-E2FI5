@@ -6,22 +6,56 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
 using CommonTypes;
+using System.ComponentModel;
 
 namespace BusinessLogic
 {
     public class KFZCollectionModel
     {
+        private BackgroundWorker _bwThread;
 
         public List<KFZModel> KFZListe = new List<KFZModel>();
-
         public event KFZDataReadyEventHandler KFZDataReady;
         public event BusinessLogic.Events.InfoMessageEventHandler InfoMessage;
-
+        public event KFZStateChangedEventHandler KFZStateChanged;
 
         public KFZCollectionModel()
         {
+            _bwThread = new BackgroundWorker();
+            _bwThread.DoWork += ThreadMethode;
+            _bwThread.WorkerSupportsCancellation = true;
+            //Starten des Threads.
+            _bwThread.RunWorkerAsync();
+
+        }
 
 
+        /// <summary>
+        /// Diese Methode läuft als separater Thread und überprüft, ob
+        /// neue KFZs vorhanden sind, KFZs verändert wurden oder gelöscht
+        /// wurden. 
+        /// Über entsprechende Events werden die Veränderungen bekannt gegeben.
+        /// </summary>
+        private void ThreadMethode(object sender, DoWorkEventArgs e)
+        {
+            //Endlosschleife
+            while (true)
+            {
+
+
+                //foreach (KFZModel kfzm in KFZListe)
+                //{
+
+                //}
+                KFZ dummy = new KFZ() { Idkfz = 23, FahrgestellNr = "2342354" };
+
+                if (KFZStateChanged != null)
+                {
+                    KFZStateChanged(E_KFZSTATE.eKFZNew, dummy);
+                }
+
+                System.Threading.Thread.Sleep(5000); //5 Sek. schlafen.
+            }
 
         }
 
