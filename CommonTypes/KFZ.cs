@@ -28,6 +28,8 @@ namespace CommonTypes
         public int Leistung { get; set; }
         public string Typ { get; set; }
 
+        public int TypID { get; set; }
+
 
         public override string ToString()
         {

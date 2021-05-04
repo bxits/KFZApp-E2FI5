@@ -33,9 +33,9 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox x:Name="cbS" IsChecked="{Binding Selected, Mode=TwoWay}"></CheckBox>
-                        <Label Content="{Binding Kennzeichen}"></Label>
+                        <Label Content="{Binding Kennzeichen}" Width="100"></Label>
                         <Label Content="{Binding Leistung}"></Label>
-                        <Label Content="{Binding Typ}"></Label>
+                        <Label Content="{Binding Typ}" Width="100"></Label>
                         <Label Content="{Binding FahrgestellNr}"></Label>
                         <Label Content="{Binding Idkfz}"></Label>
                     </StackPanel>
